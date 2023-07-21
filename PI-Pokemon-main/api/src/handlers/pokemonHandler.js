@@ -1,4 +1,5 @@
 const {getAllPokemons} = require("../controllers/pokemonControllers/getAllPokemons");
+const {getPokeById} = require("../controllers/pokemonControllers/getPokeById");
 
 const getPokemonsHandler = async (req,res) => {
     //const {name} = req.query;
@@ -27,4 +28,17 @@ const getPokemonsHandler = async (req,res) => {
     }
 }
 
-module.exports = {getPokemonsHandler};
+const getPokeByIdHandler = async (req,res) => {
+    const {idPokemon} = req.params;
+
+    const idSource = isNaN(idPokemon) ? "bdd" : "api";
+
+    try {
+        const idResult = await getPokeById(idPokemon,idSource);
+        res.status(200).json(idResult);
+    } catch (error) {
+        res.status(400).json({error: error.message}) 
+    }
+}
+
+module.exports = {getPokemonsHandler,getPokeByIdHandler};
