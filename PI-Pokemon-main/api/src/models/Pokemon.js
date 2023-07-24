@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING, //revisar
+      type: DataTypes.STRING, 
       allowNull: false, 
     },
     hp: {

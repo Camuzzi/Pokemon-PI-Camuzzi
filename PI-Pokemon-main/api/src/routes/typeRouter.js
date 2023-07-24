@@ -1,8 +1,8 @@
 const { Router } = require('express');
-//const { getAllGenresHandler } = require("../handlers/genresHandler");
+const {getTypesHandler} = require("../handlers/typeHandler"); 
 
 const typeRouter = Router();
 
-//typeRouter.get("/",getAllGenresHandler)
+typeRouter.get("/",getTypesHandler)
 
 module.exports = typeRouter;

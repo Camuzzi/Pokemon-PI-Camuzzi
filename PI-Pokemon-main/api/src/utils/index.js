@@ -42,4 +42,18 @@ const filterPokemons = async (array,source) => {
     
 }
 
-module.exports = {filterPokemons};
+const filterTypes = (data) => {
+    return data.map( (e) => {
+        return {
+            id: e.id,
+            name: e.name
+        }
+    })
+}
+
+
+const updateDB = async () => {
+
+}
+
+module.exports = {filterPokemons,filterTypes};
