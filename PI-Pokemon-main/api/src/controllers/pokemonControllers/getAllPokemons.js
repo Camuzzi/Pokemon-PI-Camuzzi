@@ -1,7 +1,7 @@
 const {filterPokemons} = require("../../utils/index");
 const axios = require('axios');
 
-const { Pokemon } = require("../../db");
+const { Pokemon,Type } = require("../../db");
 
 const getAllPokemons = async () => {
     let apiPokemons = [];
@@ -27,7 +27,7 @@ const getAllPokemons = async () => {
     //-------------// 
 
 
-    const dbPokemons = await Pokemon.findAll();
+    const dbPokemons = await Pokemon.findAll( {include: [{ model: Type, attributes: ['name'], through: { attributes: [] } }]});
 
     return [...dbPokemons , ...filteredPokemons];
 }

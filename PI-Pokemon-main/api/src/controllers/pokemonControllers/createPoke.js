@@ -15,15 +15,10 @@ const createPoke = async (name,image,hp,attack,defense,speed,height,weight,types
     } else {
         const newPokemon = await Pokemon.create({name,image,hp,attack,defense,speed,height,weight});
 
-        let typesId = await Type.findAll({
-            where : {
-                name: types
-            }
+        types.forEach(type => {
+            newPokemon.addType(type);
         });
 
-        typesId = typesId.map( element => element.id);
-
-        await newPokemon.addTypes(typesId);
          
         return newPokemon;
     }
