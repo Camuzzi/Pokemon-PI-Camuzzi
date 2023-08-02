@@ -1,6 +1,6 @@
 import {useDispatch,useSelector} from "react-redux";
 import { useEffect,useState } from "react";
-import { getPokemons,getByName,getTypes,filterByType,dataFilter } from "../../redux/actions/indexActions";
+import { getPokemons,getByName,getTypes,filterByType,dataFilter,alphaFilter } from "../../redux/actions/indexActions";
 
 import "./home.styles.css";
 
@@ -81,11 +81,15 @@ function Home() {
       setCurrentPage(1);
     }
 
+    const findByOrder = (e) => {
+      dispatch(alphaFilter(e.target.value));
+      setCurrentPage(1);
+    }
+
   //* END FILTERS *\\
 
   return (
     <div >
-      <h2>POKEMON APP</h2>
 
       <SearchBar handleChange={handleChange} handleClick={handleClick}/>
 
@@ -125,6 +129,16 @@ function Home() {
           <option value="fairy">Fairy</option>
           <option value="unknown">Unknown</option>
           <option value="shadow">Shadow</option>
+        </select>
+
+        {/* filter of pokemons by order and attack */}
+
+        <span>Order of Pokemons:</span>
+        <select onChange={findByOrder}>
+          <option value="all">Reset</option>
+          <option value="asc">Ascendant</option>
+          <option value="dsc">Descendant</option>
+          <option value="atc">Attack</option>
         </select>
 
 

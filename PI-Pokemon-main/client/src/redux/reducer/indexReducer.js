@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA } from "../actions/indexActions";
+import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA } from "../actions/indexActions";
 
 let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[]};
 
@@ -54,6 +54,34 @@ function rootReducer (state = initialState,action) {
                 allPokemons: [...filter]
             }
 
+        case FILTER_ALPHA:
+            let alphaFilter;
+
+            if (action.payload === "all") return {...state,allPokemons:[...state.auxPokemons]}
+
+           alphaFilter = state.auxPokemons.sort((a,b) => {
+            if(action.payload === "asc"){
+                return a.name.localeCompare(b.name);
+            } else {
+                return b.name.localeCompare(a.name);
+            }
+           });
+
+           alphaFilter = state.auxPokemons.sort((a,b) => {
+            if(action.payload === "asc"){
+                return a.name.localeCompare(b.name);
+            } else if (action.payload === "atc"){
+               return b.attack - a.attack;
+            } else {
+                return b.name.localeCompare(a.name);
+            }
+           });
+
+           return {
+            ...state,
+            allPokemons: [...alphaFilter]
+           }
+            
 
         default:
             return state;
