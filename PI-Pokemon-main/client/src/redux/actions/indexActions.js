@@ -6,6 +6,7 @@ export const GET_TYPES = "GET_TYPES";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE"; 
 export const FILTER_DATA = "FILTER_DATA";
 export const FILTER_ALPHA = "FILTER_ALPHA";
+export const CREATE_POKEMON = "CREATE_POKEMON";
 
 export function getPokemons() {
     return async function (dispatch){
@@ -55,5 +56,15 @@ export function alphaFilter(data){
     return {
         type: FILTER_ALPHA,
         payload: data
+    }
+}
+
+export function createPoke(form) {
+    return async function(dispatch){
+        const response = await axios.post("http://localhost:3001/pokemons",form);
+        return dispatch({
+            type: CREATE_POKEMON,
+            payload: response.data
+        })
     }
 }

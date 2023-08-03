@@ -1,4 +1,4 @@
-import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA } from "../actions/indexActions";
+import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA,CREATE_POKEMON } from "../actions/indexActions";
 
 let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[]};
 
@@ -81,6 +81,11 @@ function rootReducer (state = initialState,action) {
             ...state,
             allPokemons: [...alphaFilter]
            }
+
+        case CREATE_POKEMON:
+            return {
+                ...state
+            };
             
 
         default:
