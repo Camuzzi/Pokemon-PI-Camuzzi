@@ -12,7 +12,7 @@ function Form() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const pokeTypes = useSelector((state) => state.getTypes);
+  const pokeTypes = useSelector((state) => state.allTypes);
 
   const [input,setInput] = useState({
     name: "",
@@ -23,7 +23,7 @@ function Form() {
     speed: "",
     height: "",
     weight: "",
-    type: []
+    types: []
   });
 
   const [errors,setErrors] = useState({
@@ -32,41 +32,49 @@ function Form() {
     hp: "",
     attack: "",
     defense: "",
-    speed: "",
-    height: "",
-    weight: "",
-    type: []
+    types: []
   });
 
+  const [isType2Enabled,setIsType2Enabled] = useState(false);
+
   useEffect(() => {
-    dispatch(getPokemons());
+    dispatch(getTypes());
   }, [dispatch]);
 
   function handleChange(e) {
     e.preventDefault();
 
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value 
-    });
-
-    setErrors(
-      validate({
+    if (e.target.name === "height" || e.target.name === "weight"){
+      setInput({
         ...input,
         [e.target.name]: e.target.value 
-      })
-    )
+      });
+    } else {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value 
+      });
+  
+      setErrors(
+        validate({
+          ...input,
+          [e.target.name]: e.target.value 
+        })
+      )
+    }
+    
   }
 
   function handleChangeImage(e) {
-    let regexImage = /[.jpg|.png]$/g;
+    //let regexImage = /[.jpg|.png]$/g;
+    let regexImage = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
     if (!regexImage.test(e.target.value)){
       setErrors({
-        ...input,
+        ...errors,
         image: "Please enter a valid url"
       })
     } else {
-      setErrors({...errors})
+      setErrors({...errors,image:""})
     }
 
     setInput({
@@ -75,15 +83,6 @@ function Form() {
     })
 
   }
-
-  // function handleChangeRange(e) {
-
-  //   const currentValue = parseInt(e.target.value);
-  //   setInput({
-  //     ...input,
-  //     [e.target.name]: e.target.value 
-  //   })
-  // }
 
   function handleChangeNumber(e) {
    
@@ -105,10 +104,51 @@ function Form() {
     }
   }
 
+  function handleChangeTypes(e){
+    if (e.target.name === "firstType"){
+      setInput({
+        ...input,
+        types: [e.target.value]
+      });
+    } else if (e.target.name === "secondType"){
+      setInput({
+        ...input,
+        types: [...input.types,e.target.value]
+      })
+    }
+  }
+
+  function sumbitHandler(e){
+    e.preventDefault();
+
+    if (input.name === "" || input.image === "" || input.hp === "" || input.attack === "" || input.defense === "" || input.types.length === 0) {
+      alert('You have to complete mandatory fields!!');
+      return;
+    } else {
+      dispatch(createPoke(input));
+      alert("Pokemon created successfully!!!");
+      setInput({
+        name: "",
+        image: "",
+        hp: "",
+        attack: "",
+        defense: "",
+        speed: "",
+        height: "",
+        weight: "",
+        types: []
+      });
+    }
+
+    dispatch(getPokemons());
+    navigate("/home");
+
+  }
+
   
   return (
     <div >
-      <form>
+      <form onSubmit={(event) => sumbitHandler(event)}>
 
         <label>Name: </label>
         <input 
@@ -118,6 +158,7 @@ function Form() {
           value={input.name}
           onChange={(event) => handleChange(event)}
         />
+        {errors.name  && <p>{errors.name}</p>}
 
         <label>Image: </label>
         <input 
@@ -127,6 +168,7 @@ function Form() {
           value={input.image}
           onChange={(event) => handleChangeImage(event)}
         />
+        {errors.image  && <p>{errors.image}</p>}
 
         <label>HP: </label>
         <input
@@ -185,15 +227,45 @@ function Form() {
           value={input.weight}
           onChange={(event) => handleChange(event)}
         />
+
+        <label>First Type: </label>
+        <select
+          name="firstType"
+          onChange={(event) => handleChangeTypes(event)}
+        >
+          {pokeTypes?.map((type) => {
+            return (
+              <option key={type.name} value={type.id}>
+                {type.name}
+              </option>
+            );
+          })}
+        </select>
+
+        <label>Second Type: </label>
+        <input
+          type="checkbox"
+          onChange={(event) => setIsType2Enabled(event.target.checked)}
+        />
+        <select
+          name="secondType"
+          disabled={!isType2Enabled}
+          onChange={(event) => handleChangeTypes(event)}
+        >
+          {pokeTypes?.map((type) => {
+            return (
+              <option key={type.name} value={type.id}>
+                {type.name}
+              </option>
+            );
+          })}
+        </select>
         
-        {/* <label>Types: </label>
-        <input 
-          placeholder="Pokemon name..."
-          type="text"
-          name="name"
-          value={input.name}
-          onChange={}
-        /> */}
+        <button
+          type="sumbit"
+        >
+          CREATE POKEMON
+        </button>
 
       </form>
     </div>
