@@ -12,6 +12,7 @@ const getPokeById = async (id,source) => {
     } else {
         const pokemon = await Pokemon.findOne({
             where: {id:id},
+            include: [{ model: Type, attributes: ['name'], through: { attributes: [] } }]
         })
         return pokemon;
     }

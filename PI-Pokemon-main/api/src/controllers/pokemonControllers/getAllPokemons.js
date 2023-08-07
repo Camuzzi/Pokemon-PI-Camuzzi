@@ -27,9 +27,36 @@ const getAllPokemons = async () => {
     //-------------// 
 
 
-    const dbPokemons = await Pokemon.findAll( {include: [{ model: Type, attributes: ['name'], through: { attributes: [] } }]});
+    // const dbPokemons = await Pokemon.findAll( {include: [{ model: Type, attributes: ['name'], through: { attributes: [] } }]});
 
-    return [...dbPokemons , ...filteredPokemons];
+    const dbPokemons = await Pokemon.findAll({
+        include: [
+            {
+                model: Type,
+                attributes: ["name"],
+                through: {attributes: []},
+            },
+        ],
+        attributes: { exclude: ['Types.name'] },
+        raw: true,
+    })
+
+    const formattedDBPokemons = dbPokemons.reduce((acc, pokemon) => {
+        const existingPokemon = acc.find((p) => p.id === pokemon.id);
+      
+        if (existingPokemon) {
+          if (pokemon['Types.name']) {
+            existingPokemon.Types.push(pokemon['Types.name']);
+          }
+        } else {
+          const { 'Types.name': type, ...rest } = pokemon;
+          acc.push({ ...rest, Types: type ? [type] : [] });
+        }
+      
+        return acc;
+      }, []);      
+    
+    return [...formattedDBPokemons , ...filteredPokemons];
 }
 
 module.exports = {getAllPokemons};

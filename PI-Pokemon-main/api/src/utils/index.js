@@ -15,7 +15,7 @@ const filterPokemons = async (array,source) => {
                     speed: e.stats[3].base_stat,
                     height: e.height,
                     weight: e.weight,
-                    type: e.types?.map((r) => r.type.name),
+                    Types: e.types?.map((r) => r.type.name),
                 };
             } )
         );
@@ -35,7 +35,7 @@ const filterPokemons = async (array,source) => {
             speed: array.stats[3].base_stat,
             height: array.height,
             weight: array.weight,
-            type: array.types?.map((r) => r.type.name),  
+            Types: array.types?.map((r) => r.type.name),  
         }
     }
     

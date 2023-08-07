@@ -5,7 +5,7 @@ const {getAllPokemons} = require("./getAllPokemons");
 
 const { Pokemon,Type } = require("../../db");
 
-const createPoke = async (name,image,hp,attack,defense,speed,height,weight,types) => {
+const createPoke = async (name,image,hp,attack,defense,speed,height,weight,type) => {
     const allPokemons = await getAllPokemons();
 
     const validation = allPokemons.find( element => element.name === name);
@@ -15,7 +15,7 @@ const createPoke = async (name,image,hp,attack,defense,speed,height,weight,types
     } else {
         const newPokemon = await Pokemon.create({name,image,hp,attack,defense,speed,height,weight});
 
-        types.forEach(type => {
+        type.forEach(type => {
             newPokemon.addType(type);
         });
 
