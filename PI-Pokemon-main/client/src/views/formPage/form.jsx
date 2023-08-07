@@ -23,7 +23,7 @@ function Form() {
     speed: "",
     height: "",
     weight: "",
-    types: []
+    type: []
   });
 
   const [errors,setErrors] = useState({
@@ -32,7 +32,7 @@ function Form() {
     hp: "",
     attack: "",
     defense: "",
-    types: []
+    type: []
   });
 
   const [isType2Enabled,setIsType2Enabled] = useState(false);
@@ -66,7 +66,6 @@ function Form() {
   }
 
   function handleChangeImage(e) {
-    //let regexImage = /[.jpg|.png]$/g;
     let regexImage = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
     if (!regexImage.test(e.target.value)){
       setErrors({
@@ -108,12 +107,12 @@ function Form() {
     if (e.target.name === "firstType"){
       setInput({
         ...input,
-        types: [e.target.value]
+        type: [e.target.value]
       });
     } else if (e.target.name === "secondType"){
       setInput({
         ...input,
-        types: [...input.types,e.target.value]
+        type: [...input.type,e.target.value]
       })
     }
   }
@@ -121,7 +120,7 @@ function Form() {
   function sumbitHandler(e){
     e.preventDefault();
 
-    if (input.name === "" || input.image === "" || input.hp === "" || input.attack === "" || input.defense === "" || input.types.length === 0) {
+    if (input.name === "" || input.image === "" || input.hp === "" || input.attack === "" || input.defense === "" || input.type.length === 0) {
       alert('You have to complete mandatory fields!!');
       return;
     } else {
@@ -136,7 +135,7 @@ function Form() {
         speed: "",
         height: "",
         weight: "",
-        types: []
+        type: []
       });
     }
 

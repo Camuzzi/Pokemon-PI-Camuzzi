@@ -16,11 +16,24 @@ function Home() {
   const allTypes = useSelector((state) => state.allTypes);
 
   const [searchString,setSearchString] = useState("");
-  const [filteredPokemons,setFilteredPokemons] = useState(allPokemons);
+  const [filteredPokemons,setFilteredPokemons] = useState([]);
 
   useEffect(() => {
     dispatch(getPokemons());
   }, [dispatch]);
+
+
+  // useEffect(() => {
+  //   const searchByName = async () => {
+  //     if(searchString.trim() === ""){
+  //       setFilteredPokemons([]);
+  //     } else {
+  //       await dispatch(getByName(searchString));
+  //       setFilteredPokemons(pokemonsByName);
+  //     }
+  //   };
+  //   searchByName();
+  // }, [searchString,pokemonsByName])
 
   //* PAGINATE *\\
 
@@ -91,7 +104,7 @@ function Home() {
   return (
     <div >
 
-      <SearchBar handleChange={handleChange} handleClick={handleClick}/>
+      <SearchBar handleChange={handleChange} handleClick={handleClick} />
 
       <div> {/* filters */}
 

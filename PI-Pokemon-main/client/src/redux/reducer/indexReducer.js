@@ -1,6 +1,6 @@
-import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA,CREATE_POKEMON } from "../actions/indexActions";
+import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA,CREATE_POKEMON,GET_DETAIL,CLEAN_DETAIL } from "../actions/indexActions";
 
-let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[]};
+let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[],pokemonDetail:[]};
 
 function rootReducer (state = initialState,action) {
     switch (action.type){
@@ -21,11 +21,24 @@ function rootReducer (state = initialState,action) {
                 allTypes: action.payload
             }
 
+        case GET_DETAIL:
+            return{
+                ...state,
+                pokemonDetail: action.payload
+            }
+        
+        case CLEAN_DETAIL:
+            return{
+                ...state,
+                pokemonDetail: []
+            }
+
         case FILTER_BY_TYPE:
 
             if (action.payload === "all") return {...state,allPokemons:[...state.auxPokemons]}
 
-            let filteredPokemons = state.auxPokemons.filter( (pokemon) => pokemon.type.includes(action.payload) );
+             let filteredPokemons = state.auxPokemons.filter( (pokemon) => pokemon.Types.includes(action.payload) );
+  
 
             return {
                 ...state,
