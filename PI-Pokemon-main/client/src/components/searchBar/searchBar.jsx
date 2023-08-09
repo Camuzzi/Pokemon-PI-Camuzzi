@@ -1,9 +1,22 @@
 import "./searchBar.styles.css";
 import {Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
-function SearchBar({handleChange,handleClick}) {
+function SearchBar({handleSearch}) {
     const location = useLocation();
+
+    const [searchValue,setSearchValue] = useState("");
+
+    const handleChange = (e) => {
+        console.log("Search string:", e.target.value);
+        setSearchValue(e.target.value);
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        handleSearch(searchValue);
+    }
 
     return(
         <div>
@@ -22,17 +35,10 @@ function SearchBar({handleChange,handleClick}) {
             </Link> */}
 
 
-            {/* <div>
-                <form>
-                    <input type="text" placeholder="Search by name..."  onChange={handleChange}/>
-                    <button onClick={handleClick}>SEARCH</button>
-                </form>
-            </div> */}
-
             {(location.pathname === "/home") && (
                 <div>
                 <form>
-                    <input type="text" placeholder="Search by name..."  onChange={handleChange}/>
+                    <input type="text" placeholder="Search by name..." value={searchValue} onChange={handleChange}/>
                     <button onClick={handleClick}>SEARCH</button>
                 </form>
             </div>

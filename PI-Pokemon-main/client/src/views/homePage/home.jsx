@@ -12,11 +12,12 @@ function Home() {
   const dispatch = useDispatch();
 
   const allPokemons = useSelector((state) => state.allPokemons);
-  const pokemonsByName = useSelector((state) => state.pokemonsByName);
+  const pokeByName = useSelector((state) => state.pokemonsByName);
   const allTypes = useSelector((state) => state.allTypes);
 
+  const [searchResultsFound, setSearchResultsFound] = useState(true);
   const [searchString,setSearchString] = useState("");
-  const [filteredPokemons,setFilteredPokemons] = useState([]);
+  const [filteredPokemons,setFilteredPokemons] = useState("");
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -67,16 +68,77 @@ function Home() {
 
   //* SEARCH BY NAME *\\
 
-    const handleChange = (e) => {
-      setSearchString(e.target.value);
-    }
+    // const handleChange = (e) => {
+    //   e.preventDefault();
+    //   setSearchString(e.target.value);
+    // }
 
-    const handleClick = (e) => {
-      e.preventDefault();
-      dispatch(getByName(searchString));
-      setFilteredPokemons(pokemonsByName);
-      setCurrentPage(1);
-    }
+    // const handleClick = (e) => {
+    //   e.preventDefault();
+    //   dispatch(getByName(searchString));
+    //   setFilteredPokemons(pokemonsByName);
+    //   setCurrentPage(1);
+    // }
+
+    // function handleChange(e) {
+    //   e.preventDefault();
+    //   setSearchString(e.target.value);
+    //   dispatch(getByName(e.target.value));
+    //   setFilteredPokemons(pokemonsByName);
+    //   setCurrentPage(1);
+    // }
+
+    // const handleSearch =  async (searchValue) => {
+
+    //   const toLowPoke = searchValue.toLowerCase().trim();
+      
+    //   if(searchValue) {
+
+    //     const searchResults = (await dispatch(getByName(toLowPoke))).payload;
+    //     setFilteredPokemons(searchResults);
+    //     setSearchString(toLowPoke)     
+    //     setCurrentPage(1);
+
+    //   } else {
+    //     setFilteredPokemons(allPokemons)
+    //   }
+
+    // }
+
+    const handleSearch =  async (searchValue) => {
+      const toLowPoke = searchValue.toLowerCase().trim();
+      
+      try {
+        if (searchValue) {
+          const searchResults = (await dispatch(getByName(toLowPoke))).payload;
+    
+          if (searchResults.length === 0) {
+            setFilteredPokemons([]);
+            setSearchResultsFound(false);
+            alert(`No se encontraron resultados para '${toLowPoke}'`);
+          } else {
+            setFilteredPokemons(searchResults);
+            setSearchString(toLowPoke);
+            setCurrentPage(1);
+            setSearchResultsFound(true);
+          }
+        } else {
+          setFilteredPokemons(allPokemons);
+          setSearchResultsFound(true);
+        }
+      } catch (error) {
+        
+        setFilteredPokemons([]);
+        setSearchString("");
+        setCurrentPage(1);
+        setSearchResultsFound(true);
+
+        console.error("Error fetching data:", error);
+
+        alert("There is an error with the input, please try again");
+      }
+    }    
+
 
   //* END SEARCH BY NAME *\\
 
@@ -104,7 +166,7 @@ function Home() {
   return (
     <div >
 
-      <SearchBar handleChange={handleChange} handleClick={handleClick} />
+      <SearchBar  handleSearch={handleSearch}/>
 
       <div> {/* filters */}
 
@@ -158,6 +220,11 @@ function Home() {
       </div>
 
       <div>
+        {/* {filteredPokemons.length === 0 && (
+          <div> 
+            <p>There are no pokemons with that name! Try again</p>
+          </div>
+        )} */}
         <Cards pokemons={(!searchString) ? currentPokemons : filteredPokemons}/>
       </div>
       

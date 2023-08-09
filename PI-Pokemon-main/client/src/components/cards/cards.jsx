@@ -1,20 +1,3 @@
-// import './cards.styles.css';
-// import Card from "../card/card";
-
-// function Cards({games}) {
-
-//   const gamesList = games;
-
-//     return (
-//       <div className="card-style" >
-//         {gamesList?.map((game) => (
-//           <Card game={game}/>
-//         ))}
-//       </div>
-//     );
-//   }
-  
-//   export default Cards;
 
 import "./cards.styles.css";
 
@@ -22,13 +5,24 @@ import Card from "../card/card";
 
 function Cards({pokemons}) {
 
-    const pokemonList = pokemons;
+    console.log(pokemons);
 
     return(
         <div>
-            {pokemonList.map((pokemon) => (
+            {/* {pokemonList?.map((pokemon) => (
                 <Card pokemon={pokemon} key={pokemon.id}/>
-            ))}
+            ))} */}
+            {/* {pokemonList ?  pokemonList?.map((pokemon) => (
+                <Card pokemon={pokemon} key={pokemon.id}/>
+            )) : <Card pokemon={pokemonByName} key={pokemonByName.id} />} */}
+            {Array.isArray(pokemons) ? (
+                pokemons.map((pokemon) => (
+                    <Card pokemon={pokemon} key={pokemon.id} />
+                ))
+            ) : (
+                <Card pokemon={pokemons} key={pokemons.id} />
+            )
+        }
         </div>
     );
 

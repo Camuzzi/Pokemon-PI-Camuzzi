@@ -3,7 +3,7 @@ import "./card.styles.css";
 import { useNavigate } from "react-router-dom";
 
 function Card({pokemon}){
-    const {image,name,type,Types} = pokemon;
+    const {image,name,Types} = pokemon;
     const navigate = useNavigate();
 
     function navigateHandler(){
