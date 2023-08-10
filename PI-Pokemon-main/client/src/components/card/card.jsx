@@ -11,15 +11,17 @@ function Card({pokemon}){
     }
 
     return (
-        <div>
-            <h2 onClick={navigateHandler}>{name}</h2>
-            <img src={image} alt="pokemon image" />
-            {/* {type?.map((type,key) => {
-                return <h3 key={key}>{type}</h3>
-            })} */}
+        <div className="card" onClick={navigateHandler}>
+            <h2 >{name}</h2>
+            <img src={image} alt="pokemon img" />
+
+            <div>
+            <h3>Types:</h3>
             {Types?.map((type,key) => {
-                return <h3 key={key}>{type.name || type}</h3>
+                return <h4 key={key}>{type.name || type}</h4>
             })}
+            </div>
+            
         </div>
     );
 }

@@ -12,29 +12,17 @@ function Home() {
   const dispatch = useDispatch();
 
   const allPokemons = useSelector((state) => state.allPokemons);
-  const pokeByName = useSelector((state) => state.pokemonsByName);
+  //const pokeByName = useSelector((state) => state.pokemonsByName);
   const allTypes = useSelector((state) => state.allTypes);
-
   const [searchResultsFound, setSearchResultsFound] = useState(true);
   const [searchString,setSearchString] = useState("");
   const [filteredPokemons,setFilteredPokemons] = useState("");
-
+  
   useEffect(() => {
     dispatch(getPokemons());
+    dispatch(getTypes());
   }, [dispatch]);
-
-
-  // useEffect(() => {
-  //   const searchByName = async () => {
-  //     if(searchString.trim() === ""){
-  //       setFilteredPokemons([]);
-  //     } else {
-  //       await dispatch(getByName(searchString));
-  //       setFilteredPokemons(pokemonsByName);
-  //     }
-  //   };
-  //   searchByName();
-  // }, [searchString,pokemonsByName])
+  
 
   //* PAGINATE *\\
 
@@ -67,43 +55,6 @@ function Home() {
   //* END PAGINATE *\\
 
   //* SEARCH BY NAME *\\
-
-    // const handleChange = (e) => {
-    //   e.preventDefault();
-    //   setSearchString(e.target.value);
-    // }
-
-    // const handleClick = (e) => {
-    //   e.preventDefault();
-    //   dispatch(getByName(searchString));
-    //   setFilteredPokemons(pokemonsByName);
-    //   setCurrentPage(1);
-    // }
-
-    // function handleChange(e) {
-    //   e.preventDefault();
-    //   setSearchString(e.target.value);
-    //   dispatch(getByName(e.target.value));
-    //   setFilteredPokemons(pokemonsByName);
-    //   setCurrentPage(1);
-    // }
-
-    // const handleSearch =  async (searchValue) => {
-
-    //   const toLowPoke = searchValue.toLowerCase().trim();
-      
-    //   if(searchValue) {
-
-    //     const searchResults = (await dispatch(getByName(toLowPoke))).payload;
-    //     setFilteredPokemons(searchResults);
-    //     setSearchString(toLowPoke)     
-    //     setCurrentPage(1);
-
-    //   } else {
-    //     setFilteredPokemons(allPokemons)
-    //   }
-
-    // }
 
     const handleSearch =  async (searchValue) => {
       const toLowPoke = searchValue.toLowerCase().trim();
@@ -184,26 +135,9 @@ function Home() {
         <span>Type of Pokemon:</span>
         <select onChange={findByType}>
           <option value="all">All Types</option>
-          <option value="normal">Normal</option>
-          <option value="fighting">Fighting</option>
-          <option value="flying">Flying</option>
-          <option value="poison">Poison</option>
-          <option value="ground">Ground</option>
-          <option value="rock">Rock</option>
-          <option value="bug">Bug</option>
-          <option value="ghost">Ghost</option>
-          <option value="steel">Steel</option>
-          <option value="fire">Fire</option>
-          <option value="water">Normal</option>
-          <option value="grass">Grass</option>
-          <option value="electric">Electric</option>
-          <option value="psychic">Psychic</option>
-          <option value="ice">Ice</option>
-          <option value="dragon">Dragon</option>
-          <option value="dark">Dark</option>
-          <option value="fairy">Fairy</option>
-          <option value="unknown">Unknown</option>
-          <option value="shadow">Shadow</option>
+          {allTypes.map((type) => (
+            <option value={type.name} key={type.id}>{type.name}</option>
+          ))}
         </select>
 
         {/* filter of pokemons by order and attack */}
@@ -220,11 +154,6 @@ function Home() {
       </div>
 
       <div>
-        {/* {filteredPokemons.length === 0 && (
-          <div> 
-            <p>There are no pokemons with that name! Try again</p>
-          </div>
-        )} */}
         <Cards pokemons={(!searchString) ? currentPokemons : filteredPokemons}/>
       </div>
       

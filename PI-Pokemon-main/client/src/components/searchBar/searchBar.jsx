@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function SearchBar({handleSearch}) {
+
+    const pokeballImage = "https://www.pngplay.com/wp-content/uploads/2/Pokeball-PNG-Pic-Background.png"
     const location = useLocation();
 
     const [searchValue,setSearchValue] = useState("");
@@ -19,9 +21,23 @@ function SearchBar({handleSearch}) {
     }
 
     return(
-        <div>
-            <h2>POKEMON APP</h2>
+        <div className="search-bar">
+            {/* <h2>POKEMON APP</h2> */}
 
+            <div className="logo">
+                <img src={pokeballImage} alt="pokeball" width="30" />
+            </div>
+
+            {(location.pathname === "/home") && (
+            <div className="search-form">
+                <form>
+                    <input className="search-input" type="text" placeholder="Search by name..." value={searchValue} onChange={handleChange}/>
+                    <button className="search-button" onClick={handleClick}>SEARCH</button>
+                </form>
+            </div>
+            )}
+
+            <div className="nav-links">
             <Link to="/home">
                 <p>HOME</p>
             </Link>
@@ -29,20 +45,13 @@ function SearchBar({handleSearch}) {
             <Link to="/form">
                 <p>CREATE YOUR POKEMON!</p>
             </Link>
+            </div>
 
             {/* <Link to="/about">
                 <p>ABOUT</p>
             </Link> */}
 
 
-            {(location.pathname === "/home") && (
-                <div>
-                <form>
-                    <input type="text" placeholder="Search by name..." value={searchValue} onChange={handleChange}/>
-                    <button onClick={handleClick}>SEARCH</button>
-                </form>
-            </div>
-            )}
 
         </div>
     );

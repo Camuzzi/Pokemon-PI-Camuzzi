@@ -5,10 +5,8 @@ import Card from "../card/card";
 
 function Cards({pokemons}) {
 
-    console.log(pokemons);
-
     return(
-        <div>
+        <div className="cards-style">
             {/* {pokemonList?.map((pokemon) => (
                 <Card pokemon={pokemon} key={pokemon.id}/>
             ))} */}

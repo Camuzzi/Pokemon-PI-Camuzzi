@@ -1,0 +1,52 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-image: url(https://images.unsplash.com/photo-1534254910684-68bdc1d69cf7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80);
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .card h2 {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.836);
+    margin: 8px 0;
+  }
+  
+  .card h3 {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+  
+  .card h4 {
+    font-size: 12px;
+    margin: 4px 0;
+    background-color: transparent;
+    margin: 5px 0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+

@@ -3,7 +3,7 @@ import "./detail.styles.css";
 import { useEffect } from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 import { getDetail,cleanDetail } from "../../redux/actions/indexActions";
 
@@ -12,7 +12,7 @@ function Detail() {
   const {id} = useParams();
   const dispatch = useDispatch();
   const pokemon = useSelector((state) => state.pokemonDetail);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -38,13 +38,10 @@ function Detail() {
 
       <h5>Secondary stats: </h5>
       {pokemon.speed && <h4>SPEED: {pokemon.speed}</h4>}
-      {pokemon.height && <h4>SPEED: {pokemon.height}</h4>}
-      {pokemon.weight && <h4>SPEED: {pokemon.weight}</h4>}
+      {pokemon.height && <h4>HEIGHT: {pokemon.height}</h4>}
+      {pokemon.weight && <h4>WEIGHT: {pokemon.weight}</h4>}
 
       <h5>Types: </h5>
-      {/* {pokemon.types?.map((type,index) => (
-        <h4 key={index}>Type {index + 1}: {type}</h4>
-      ))} */}
       {pokemon.Types?.map((type,index) => (
         <h4 key={index}>Type {index + 1}: {type.name || type}</h4>
       ))}
