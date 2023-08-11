@@ -2,10 +2,13 @@ import "./searchBar.styles.css";
 import {Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import logoImage from "../../assets/Pokemon-Logo-Transparent-Image.png";
 
 function SearchBar({handleSearch}) {
 
     const pokeballImage = "https://www.pngplay.com/wp-content/uploads/2/Pokeball-PNG-Pic-Background.png"
+    
+    
     const location = useLocation();
 
     const [searchValue,setSearchValue] = useState("");
@@ -22,12 +25,14 @@ function SearchBar({handleSearch}) {
 
     return(
         <div className="search-bar">
-            {/* <h2>POKEMON APP</h2> */}
 
+
+            {(location.pathname === "/home") && (
             <div className="logo">
                 <img src={pokeballImage} alt="pokeball" width="30" />
             </div>
-
+            )}
+            
             {(location.pathname === "/home") && (
             <div className="search-form">
                 <form>
@@ -37,6 +42,10 @@ function SearchBar({handleSearch}) {
             </div>
             )}
 
+            <div className="center-image">
+                <img src={logoImage} alt="logo" />
+            </div>
+            
             <div className="nav-links">
             <Link to="/home">
                 <p>HOME</p>

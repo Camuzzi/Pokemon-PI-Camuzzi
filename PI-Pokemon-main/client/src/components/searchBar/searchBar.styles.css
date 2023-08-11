@@ -10,23 +10,27 @@
     width: 30px; 
     height: auto;
     margin-right: 10px;
+    margin-bottom: 80px;
   }
   
   .nav-links {
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-bottom: 80px;
   }
   
   .nav-links a {
     text-decoration: none;
-    color: #a38989;
+    color: white;
     border: 1px solid #ccc;
-    height: 25px;
+    height: 15px;
     padding: 5px 10px;
     display: flex;
     align-items: center;
     border-radius: 4px;
+    background-color: #007bff;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.658);;
   }
   
   .search-form {
@@ -34,20 +38,35 @@
     align-items: center;
     gap: 10px;
     flex: 1;
+    margin-bottom: 80px;
   }
   
   .search-input {
     flex: 1;
-    padding: 5px;
+    padding: 5px 25px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
   
   .search-button {
     padding: 5px 10px;
+    margin-left: 2px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  .center-image {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-right: 150px;
+    margin-top: -25px;
+  }
+
+  .center-image img {
+    max-width: 350px;
+    height: auto;
   }

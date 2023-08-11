@@ -119,12 +119,12 @@ function Home() {
 
       <SearchBar  handleSearch={handleSearch}/>
 
-      <div> {/* filters */}
+      <div className="filter-container"> {/* filters */}
 
 
         {/* filter of pokemons by db or api */}
-        <span>Search on:</span>
-        <select onChange={findByData}>
+        <span className="filter-span">Search on:</span>
+        <select className="filter-button" onChange={findByData}>
           <option value="all">All</option>
           <option value="db">My Pokemons</option>
           <option value="api">From Api</option>
@@ -132,8 +132,8 @@ function Home() {
 
         {/* filter of pokemons by type */}
 
-        <span>Type of Pokemon:</span>
-        <select onChange={findByType}>
+        <span className="filter-span">Type of Pokemon:</span>
+        <select className="filter-button" onChange={findByType}>
           <option value="all">All Types</option>
           {allTypes.map((type) => (
             <option value={type.name} key={type.id}>{type.name}</option>
@@ -142,8 +142,8 @@ function Home() {
 
         {/* filter of pokemons by order and attack */}
 
-        <span>Order of Pokemons:</span>
-        <select onChange={findByOrder}>
+        <span className="filter-span">Order of Pokemons:</span>
+        <select className="filter-button" onChange={findByOrder}>
           <option value="all">Reset</option>
           <option value="asc">Ascendant</option>
           <option value="dsc">Descendant</option>
@@ -157,12 +157,12 @@ function Home() {
         <Cards pokemons={(!searchString) ? currentPokemons : filteredPokemons}/>
       </div>
       
-      <div>
-          <button onClick={prevPageHandler}>
+      <div className="pagination-container">
+          <button className="pagination-button" onClick={prevPageHandler}>
             Previous
           </button>
           <span>{currentPage}</span>
-          <button onClick={nextPageHandler}>
+          <button className="pagination-button" onClick={nextPageHandler}>
             Next
           </button>
       </div>
