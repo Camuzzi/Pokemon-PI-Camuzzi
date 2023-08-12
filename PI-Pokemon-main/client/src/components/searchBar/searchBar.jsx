@@ -47,18 +47,26 @@ function SearchBar({handleSearch}) {
             </div>
             
             <div className="nav-links">
-            <Link to="/home">
-                <p>HOME</p>
-            </Link>
 
-            <Link to="/form">
-                <p>CREATE YOUR POKEMON!</p>
-            </Link>
+                {(location.pathname !== "/home") && (
+                    <Link to="/home">
+                        <p>HOME</p>
+                    </Link>
+                )}
+
+                {(location.pathname !== "/form") && (
+                    <Link to="/form">
+                        <p>CREATE YOUR POKEMON!</p>
+                    </Link>
+                )}
+
+                {(location.pathname !== "/about") && (
+                <Link to="/about">
+                    <p>ABOUT</p>
+                </Link>
+                )}
             </div>
 
-            {/* <Link to="/about">
-                <p>ABOUT</p>
-            </Link> */}
 
 
 

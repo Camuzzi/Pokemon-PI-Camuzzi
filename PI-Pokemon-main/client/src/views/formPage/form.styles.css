@@ -1,0 +1,123 @@
+.form-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin: -80px auto 10px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .instructions-container {
+    flex: 1;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .name-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .name-image-container .input-container {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .stats-types-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .stats-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: calc(50% - 10px);
+    margin-right: 20px;
+  }
+  
+  .stats-column .input-container {
+    margin-bottom: 10px;
+  }
+  
+  .stats-column .input-container label {
+    margin-right: 10px;
+  }
+  
+  .stats-column .input-container input {
+    font-size: 12px;
+    width: 40px;
+  }
+  
+  .types-container {
+    flex: 1;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-button-container {
+    text-align: center;
+  }
+
+  .create-button-container button {
+    text-decoration: none;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #007bff;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.658);
+    cursor: pointer;
+  }
+
+
+  .stats-container .input-container input {
+    font-size: 12px; 
+    width: 50px; 
+  }
+
+
+.error-message {
+  font-size: 14px;
+  color: #ff0000; 
+  margin-top: 5px;
+}
+
+
+.input-container.error {
+  border: 2px solid #ff0000; 
+}
+
+.input-container.error input {
+  border: 2px solid #ff0000; 
+}
+
+
+.error-message {
+  font-size: 14px;
+  color: #ff0000; 
+  margin-top: 5px;
+}

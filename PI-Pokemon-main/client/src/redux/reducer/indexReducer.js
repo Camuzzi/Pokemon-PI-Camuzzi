@@ -1,6 +1,6 @@
-import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA,CREATE_POKEMON,GET_DETAIL,CLEAN_DETAIL } from "../actions/indexActions";
+import { GET_POKEMONS,GET_BY_NAME,GET_TYPES,FILTER_BY_TYPE,FILTER_DATA,FILTER_ALPHA,CREATE_POKEMON,GET_DETAIL,CLEAN_DETAIL, RESET_FILTERS } from "../actions/indexActions";
 
-let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[],pokemonDetail:[]};
+let initialState = {allPokemons:[],allTypes:[],pokemonsByName:[],auxPokemons:[],pokemonDetail:[],filtersPokemons:[],filters:{type:"all",data:"all",order:"reset"}};
 
 function rootReducer (state = initialState,action) {
     switch (action.type){
@@ -8,7 +8,8 @@ function rootReducer (state = initialState,action) {
             return {
                 ...state,
                 allPokemons: action.payload,
-                auxPokemons: action.payload
+                auxPokemons: action.payload,
+                filteredPokemons: action.payload
             }
         case GET_BY_NAME:
             return {
@@ -37,12 +38,12 @@ function rootReducer (state = initialState,action) {
 
             if (action.payload === "all") return {...state,allPokemons:[...state.auxPokemons]}
 
-             let filteredPokemons = state.auxPokemons.filter( (pokemon) => pokemon.Types.includes(action.payload) );
+             state.filtersPokemons = state.auxPokemons.filter( (pokemon) => pokemon.Types.includes(action.payload) );
   
 
             return {
                 ...state,
-                allPokemons: [...filteredPokemons]
+                allPokemons: [...state.filtersPokemons]
             }
 
         case FILTER_DATA:
@@ -57,47 +58,50 @@ function rootReducer (state = initialState,action) {
             }
 
             if (action.payload === "db") {
-                filter = state.auxPokemons.filter((p) => typeof p.id !== "number");
+                state.filtersPokemons = state.auxPokemons.filter((p) => typeof p.id !== "number");
             } else {
-                filter = state.auxPokemons.filter((p) => typeof p.id === "number");
+                state.filtersPokemons = state.auxPokemons.filter((p) => typeof p.id === "number");
             }
 
             return {
                 ...state,
-                allPokemons: [...filter]
+                allPokemons: [...state.filtersPokemons]
             }
 
         case FILTER_ALPHA:
-            let alphaFilter;
+               
+            if (action.payload === "reset") 
+             return {
+                ...state,
+                allPokemons:[...state.auxPokemons]
+            };
 
-            if (action.payload === "all") return {...state,allPokemons:[...state.auxPokemons]}
+            let sortedPokemons = [...state.filtersPokemons];
 
-           alphaFilter = state.auxPokemons.sort((a,b) => {
-            if(action.payload === "asc"){
-                return a.name.localeCompare(b.name);
+            if (action.payload === "asc") {
+            sortedPokemons.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (action.payload === "atc") {
+            sortedPokemons.sort((a, b) => b.attack - a.attack);
             } else {
-                return b.name.localeCompare(a.name);
+            sortedPokemons.sort((a, b) => b.name.localeCompare(a.name));
             }
-           });
-
-           alphaFilter = state.auxPokemons.sort((a,b) => {
-            if(action.payload === "asc"){
-                return a.name.localeCompare(b.name);
-            } else if (action.payload === "atc"){
-               return b.attack - a.attack;
-            } else {
-                return b.name.localeCompare(a.name);
-            }
-           });
-
-           return {
+        
+            return {
             ...state,
-            allPokemons: [...alphaFilter]
-           }
+            allPokemons: sortedPokemons
+            }
+
+        case RESET_FILTERS:
+            return{
+                ...state,
+                allPokemons: [...state.auxPokemons]
+            }
 
         case CREATE_POKEMON:
             return {
-                ...state
+                ...state,
+                allPokemons: [...state.auxPokemons],
+                filtersPokemons: [...state.auxPokemons] 
             };
             
 

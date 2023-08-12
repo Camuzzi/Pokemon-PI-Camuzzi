@@ -6,6 +6,8 @@ import Home from "./views/homePage/home.jsx";
 import Landing from "./views/landingPage/landing.jsx";
 import Form from "./views/formPage/form.jsx";
 import Detail from "./views/detailPage/detail.jsx";
+import ErrorPage from './views/errorPage/error';
+import About from './views/aboutPage/about';
 
 function App() {
   const location = useLocation();
@@ -20,6 +22,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/form" element={<Form />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route path='/about' element={<About />} />
       </Routes>
 
     </div>

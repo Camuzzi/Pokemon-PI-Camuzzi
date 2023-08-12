@@ -1,6 +1,6 @@
 import {useDispatch,useSelector} from "react-redux";
 import { useEffect,useState } from "react";
-import { getPokemons,getByName,getTypes,filterByType,dataFilter,alphaFilter } from "../../redux/actions/indexActions";
+import { getPokemons,getByName,getTypes,filterByType,dataFilter,alphaFilter,resetPokeFilters } from "../../redux/actions/indexActions";
 
 import "./home.styles.css";
 
@@ -17,6 +17,12 @@ function Home() {
   const [searchResultsFound, setSearchResultsFound] = useState(true);
   const [searchString,setSearchString] = useState("");
   const [filteredPokemons,setFilteredPokemons] = useState("");
+  
+  const [selectedFilters, setSelectedFilters] = useState({
+    data: "all",
+    type: "all",
+    alpha: "reset"
+  });
   
   useEffect(() => {
     dispatch(getPokemons());
@@ -112,6 +118,20 @@ function Home() {
       setCurrentPage(1);
     }
 
+    const resetFilters = () => {
+      setSelectedFilters({
+        data: "all",
+        type: "all",
+        alpha: "reset"
+      });
+      setFilteredPokemons("");
+      dispatch(resetPokeFilters());
+      dispatch(filterByType("all"));
+      dispatch(dataFilter("all"));
+      dispatch(alphaFilter("reset"));
+      setCurrentPage(1);
+    }
+
   //* END FILTERS *\\
 
   return (
@@ -124,7 +144,7 @@ function Home() {
 
         {/* filter of pokemons by db or api */}
         <span className="filter-span">Search on:</span>
-        <select className="filter-button" onChange={findByData}>
+        <select className="filter-button" onChange={(e) => {setSelectedFilters({...selectedFilters,data:e.target.value});findByData(e);}} value={selectedFilters.data}>
           <option value="all">All</option>
           <option value="db">My Pokemons</option>
           <option value="api">From Api</option>
@@ -133,7 +153,9 @@ function Home() {
         {/* filter of pokemons by type */}
 
         <span className="filter-span">Type of Pokemon:</span>
-        <select className="filter-button" onChange={findByType}>
+        <select className="filter-button" onChange={(e) => {
+          setSelectedFilters({...selectedFilters,type:e.target.value});findByType(e)
+        }} value={selectedFilters.type}>
           <option value="all">All Types</option>
           {allTypes.map((type) => (
             <option value={type.name} key={type.id}>{type.name}</option>
@@ -143,13 +165,16 @@ function Home() {
         {/* filter of pokemons by order and attack */}
 
         <span className="filter-span">Order of Pokemons:</span>
-        <select className="filter-button" onChange={findByOrder}>
-          <option value="all">Reset</option>
+        <select className="filter-button" onChange={(e) => {
+          setSelectedFilters({...selectedFilters,alpha:e.target.value});findByOrder(e)
+        }} value={selectedFilters.alpha}>
+          <option value="reset">Reset</option>
           <option value="asc">Ascendant</option>
           <option value="dsc">Descendant</option>
           <option value="atc">Attack</option>
         </select>
 
+        <button className="filter-button" onClick={resetFilters}>RESET FILTERS</button>
 
       </div>
 

@@ -88,7 +88,7 @@ function Form() {
     if(e.target.value > 300 || e.target.value < 0){
       setErrors({
         ...errors,
-        [e.target.name]: "Value has to be between 1 and 200" 
+        [e.target.name]: "Value has to be between 1 and 300" 
       })
     } else {
       setErrors({
@@ -146,126 +146,175 @@ function Form() {
 
   
   return (
-    <div >
+    <div className="form-container">
+
+        <div className="instructions-container">
+          <p>Welcome to the Pokémon Creation Form!</p>
+          <p>Please fill in the details to create your own Pokémon.</p>
+        </div>
+
       <form onSubmit={(event) => sumbitHandler(event)}>
 
-        <label>Name: </label>
-        <input 
-          placeholder="Pokemon name..."
-          type="text"
-          name="name"
-          value={input.name}
-          onChange={(event) => handleChange(event)}
-        />
-        {errors.name  && <p>{errors.name}</p>}
+        <div className="name-image-container"> 
+          <div className="input-container">
+            <label>Name: </label>
+            <input 
+              placeholder="Pokemon name..."
+              type="text"
+              name="name"
+              value={input.name}
+              onChange={(event) => handleChange(event)}
+              className={errors.name ? 'error' : ''}
+            />
+            {errors.name  && <p className="error-message">{errors.name}</p>}
+          </div>
 
-        <label>Image: </label>
-        <input 
-          type="text"
-          name="image"
-          placeholder="Url link jpg or png"
-          value={input.image}
-          onChange={(event) => handleChangeImage(event)}
-        />
-        {errors.image  && <p>{errors.image}</p>}
+          <div className="input-container">
+            <label>Image: </label>
+            <input 
+              type="text"
+              name="image"
+              placeholder="Url link jpg or png"
+              value={input.image}
+              onChange={(event) => handleChangeImage(event)}
+              className={errors.image ? 'error' : ''}
+            />
+            {errors.image  && <p className="error-message">{errors.image}</p>}
+          </div>
+        </div>
 
-        <label>HP: </label>
-        <input
-          type="number"
-          name="hp"
-          placeholder="hp..."
-          value={input.hp}
-          onChange={(event) => handleChangeNumber(event)}
-        /> 
-        {errors.hp  && <p>{errors.hp}</p>}
+        <div className="stats-types-container">
 
-        <label>Attack: </label>
-        <input 
-           type="number"
-           name="attack"
-           placeholder="attack..."
-           value={input.attack}
-           onChange={(event) => handleChangeNumber(event)}
-         /> 
-         {errors.attack && <p>{errors.attack}</p>}
+          <div className="stats-container">
+          <div className="stats-column">
+            
+              <div className="input-container">
+                <label>HP: </label>
+                <input
+                  type="number"
+                  name="hp"
+                  placeholder="hp..."
+                  value={input.hp}
+                  onChange={(event) => handleChangeNumber(event)}
+                  className={errors.hp ? 'error' : ''}
+                /> 
+                {errors.hp  && <p className="error-message">{errors.hp}</p>}
+              </div>
 
-        <label>Defense: </label>
-        <input 
-           type="number"
-           name="defense"
-           placeholder="defense..."
-           value={input.defense}
-           onChange={(event) => handleChangeNumber(event)}
-         /> 
-         {errors.defense && <p>{errors.defense}</p>}
+              <div className="input-container">
+                <label>Attack: </label>
+                <input 
+                  type="number"
+                  name="attack"
+                  placeholder="attack..."
+                  value={input.attack}
+                  onChange={(event) => handleChangeNumber(event)}
+                  className={errors.attack ? 'error' : ''}
+                /> 
+                {errors.attack && <p className="error-message">{errors.attack}</p>}
+              </div>
 
-        <label>Speed: </label>
-        <input 
-           type="number"
-           name="speed"
-           placeholder="speed..."
-           value={input.speed}
-           onChange={(event) => handleChangeNumber(event)}
-         /> 
-         {errors.speed && <p>{errors.speed}</p>}
+              <div className="input-container">
+                <label>Defense: </label>
+                <input 
+                  type="number"
+                  name="defense"
+                  placeholder="defense..."
+                  value={input.defense}
+                  onChange={(event) => handleChangeNumber(event)}
+                  className={errors.defense ? 'error' : ''}
+                /> 
+                {errors.defense && <p className="error-message">{errors.defense}</p>}
+              </div>
+            
+          </div> 
+          
+          <div className="stats-column">
+              <div className="input-container">
+                <label>Speed: </label>
+                <input 
+                  type="number"
+                  name="speed"
+                  placeholder="speed..."
+                  value={input.speed}
+                  onChange={(event) => handleChangeNumber(event)}
+                  className={errors.speed ? 'error' : ''}
+                /> 
+                {errors.speed && <p className="error-message">{errors.speed}</p>}
+              </div>
 
-        <label>Height: </label>
-        <input 
-          placeholder="Height"
-          type="number"
-          name="height"
-          value={input.height}
-          onChange={(event) => handleChange(event)}
-        />
+              <div className="input-container">
+                <label>Height: </label>
+                <input 
+                  placeholder="Height"
+                  type="number"
+                  name="height"
+                  value={input.height}
+                  onChange={(event) => handleChange(event)}
+                />
+              </div>
 
-        <label>Weight: </label>
-        <input 
-          placeholder="Weight"
-          type="number"
-          name="weight"
-          value={input.weight}
-          onChange={(event) => handleChange(event)}
-        />
+              <div className="input-container">
+                <label>Weight: </label>
+                <input 
+                  placeholder="Weight"
+                  type="number"
+                  name="weight"
+                  value={input.weight}
+                  onChange={(event) => handleChange(event)}
+                />
+              </div>
+          </div>
 
-        <label>First Type: </label>
-        <select
-          name="firstType"
-          onChange={(event) => handleChangeTypes(event)}
-        >
-          {pokeTypes?.map((type) => {
-            return (
-              <option key={type.name} value={type.id}>
-                {type.name}
-              </option>
-            );
-          })}
-        </select>
+          <div className="types-container">
 
-        <label>Second Type: </label>
-        <input
-          type="checkbox"
-          onChange={(event) => setIsType2Enabled(event.target.checked)}
-        />
-        <select
-          name="secondType"
-          disabled={!isType2Enabled}
-          onChange={(event) => handleChangeTypes(event)}
-        >
-          {pokeTypes?.map((type) => {
-            return (
-              <option key={type.name} value={type.id}>
-                {type.name}
-              </option>
-            );
-          })}
-        </select>
-        
-        <button
-          type="sumbit"
-        >
-          CREATE POKEMON
-        </button>
+            <div className="input-container">
+              <label>First Type: </label>
+              <select
+                name="firstType"
+                onChange={(event) => handleChangeTypes(event)}
+              >
+                {pokeTypes?.map((type) => {
+                  return (
+                    <option key={type.name} value={type.id}>
+                      {type.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
+            <div className="input-container">
+              <label>Second Type: </label>
+              <input
+                type="checkbox"
+                onChange={(event) => setIsType2Enabled(event.target.checked)}
+              />
+              <select
+                name="secondType"
+                disabled={!isType2Enabled}
+                onChange={(event) => handleChangeTypes(event)}
+              >
+                {pokeTypes?.map((type) => {
+                  return (
+                    <option key={type.name} value={type.id}>
+                      {type.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+          </div>
+          </div>
+          
+        </div>
+
+
+       <div className="create-button-container">
+              <button type="sumbit">CREATE POKEMON!</button>
+       </div> 
+      
       </form>
     </div>
   );

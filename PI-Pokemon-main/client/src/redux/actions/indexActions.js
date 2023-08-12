@@ -9,6 +9,7 @@ export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const FILTER_DATA = "FILTER_DATA";
 export const FILTER_ALPHA = "FILTER_ALPHA";
 export const CREATE_POKEMON = "CREATE_POKEMON";
+export const RESET_FILTERS = "RESET_FILTERS";
 
 export function getPokemons() {
     return async function (dispatch){
@@ -74,6 +75,12 @@ export function alphaFilter(data){
     return {
         type: FILTER_ALPHA,
         payload: data
+    }
+}
+
+export function resetPokeFilters(){
+    return{
+        type: RESET_FILTERS,
     }
 }
 

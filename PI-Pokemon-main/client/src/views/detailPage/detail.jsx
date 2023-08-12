@@ -1,4 +1,4 @@
-import "./detail.styles.css";
+import "./detail.styles.css"
 
 import { useEffect } from "react";
 import {useParams} from "react-router-dom";
@@ -10,7 +10,6 @@ import defImg from "../../assets/DEFENSE.png";
 import spdImg from "../../assets/SPEED.png";
 import extImg from "../../assets/extras.png";
 import pkb1Img from "../../assets/pokeball1.png";
-import pkb2Img from "../../assets/pokeball2.png";
 
 import { getDetail,cleanDetail } from "../../redux/actions/indexActions";
 
@@ -27,8 +26,8 @@ function Detail() {
       dispatch(cleanDetail());
     };
   }, [dispatch,id]);
-
-  console.log(pokemon.Types);
+  
+  console.log(pokemon);
 
   return (
     <div className="detail-container">
@@ -77,17 +76,18 @@ function Detail() {
                 <img src={extImg} alt="hp" />
                 <h4>WEIGHT: {pokemon.weight}</h4>
               </div>}
-
+ 
             </div>
 
               <div className="types-container">
                 <h3>Types: </h3>
                 {pokemon.Types?.map((type,index) => (
-                  <div className="stat">
-                  <img src={pkb1Img} alt="hp" width="30"/>
-                  <h4 key={index}>Type {index + 1}: {type.name || type}</h4>
+                  <div className="stat" key={index}>
+                    <img src={pkb1Img} alt="hp" width="30"/>
+                    <h4 >Type: {typeof pokemon.id === "number" ? type : type.name}</h4>
+                    {console.log(type)}
                 </div>   
-                ))}
+                ) )}
               </div>
 
           </div>
